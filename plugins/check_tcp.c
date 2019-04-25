@@ -328,13 +328,12 @@ main (int argc, char **argv)
 #endif
 
 	microsec = deltime (tv);
-	elapsed_time = (double)microsec / 1.0e6;
+	elapsed_time = (double)microsec / 1.0e3;
 
 	if (flags & FLAG_TIME_CRIT && elapsed_time > critical_time)
 		result = STATE_CRITICAL;
 	else if (flags & FLAG_TIME_WARN && elapsed_time > warning_time)
 		result = STATE_WARNING;
-
 	/* did we get the response we hoped? */
 	if(match == NP_MATCH_FAILURE && result != STATE_CRITICAL)
 		result = expect_mismatch_state;
@@ -353,7 +352,7 @@ main (int argc, char **argv)
 		if(match == NP_MATCH_FAILURE)
 			printf("Unexpected response from host/socket on ");
 		else
-			printf("%.3f second response time on ", elapsed_time);
+			printf("%.3f millisecond response time on ", elapsed_time);
 		if(server_address[0] != '/') {
 			if (host_specified)
 				printf("%s port %d",
